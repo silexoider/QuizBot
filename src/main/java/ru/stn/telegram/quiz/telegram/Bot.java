@@ -4,34 +4,35 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.MessageEntity;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import ru.stn.telegram.quiz.services.CommandService;
+import ru.stn.telegram.quiz.services.MessageService;
 
-import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @Getter
 @Component
 @RequiredArgsConstructor
 public class Bot extends TelegramLongPollingBot {
     private final Config config;
+    private final MessageService messageService;
 
     @Override
     public void onUpdateReceived(Update update) {
-        System.out.println("Update!");
-        if (update.hasMessage()) {
-            Message message = update.getMessage();
-            System.out.println("  Message!");
-            System.out.format("    Text: %s%n", message.getText());
-            List<MessageEntity> entities = message.getEntities();
-            if (entities == null) {
-                System.out.println("  No entities:");
-            } else {
-                System.out.println("  Has entities:");
-                for (MessageEntity entity : entities) {
-                    System.out.format("      type = %s; text = %s%n", entity.getType(), entity.getText());
+        try {
+            if (update.hasMessage()) {
+                Message message = update.getMessage();
+                BotApiMethod<?> response = messageService.process(message);
+                if (response != null) {
+                    execute(response);
                 }
             }
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
         }
     }
 
