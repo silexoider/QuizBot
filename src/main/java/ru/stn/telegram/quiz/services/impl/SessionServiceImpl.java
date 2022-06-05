@@ -1,23 +1,26 @@
 package ru.stn.telegram.quiz.services.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.checkerframework.common.util.report.qual.ReportOverride;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
 import ru.stn.telegram.quiz.entities.Session;
 import ru.stn.telegram.quiz.repositories.SessionRepository;
+import ru.stn.telegram.quiz.services.ProtocolService;
 import ru.stn.telegram.quiz.services.SessionService;
 
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 @Service
 @RequiredArgsConstructor
 public class SessionServiceImpl implements SessionService {
     private final SessionRepository sessionRepository;
-
-    private void setState(Session session, Session.State state) {
-        session.setState(state);
-        sessionRepository.save(session);
-    }
 
     private <T> void setAttribute(Session session, Consumer<T> action, T value) {
         action.accept(value);
@@ -40,35 +43,21 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
+    public void setState(Session session, Session.State state) {
+        session.setState(state);
+        sessionRepository.save(session);
+    }
+
+    @Override
     public void setProtocol(Session session, Session.Protocol protocol) {
         setAttribute(session, session::setProtocol, protocol);
     }
 
     @Override
-    public Session.State getNextState(Session session) {
-        Session.State state = session.getState();
-        do {
-            state = state.getNext();
-        } while (state.getValue() != (state.getValue() & session.getProtocol().getMask()) && state != session.getState());
-        if (state == session.getState()) {
-            return null;
-        } else {
-            return state;
-        }
-    }
-
-    @Override
-    public Session.State toNextState(Session session) {
-        Session.State next = getNextState(session);
-        setAttribute(session, session::setState, next);
-        return next;
-    }
-
-    @Override
-    public Session.State toInitialState(Session session) {
-        Session.State next = session.getProtocol().getInitialState();
-        setAttribute(session, session::setState, next);
-        return next;
+    public void setForward(Session session, long chatId, int postId) {
+        session.setChatId(chatId);
+        session.setPostId(postId);
+        sessionRepository.save(session);
     }
 
     @Override

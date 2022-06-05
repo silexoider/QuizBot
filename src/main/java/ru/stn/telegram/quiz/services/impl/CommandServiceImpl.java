@@ -7,10 +7,7 @@ import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.MessageEntity;
 import ru.stn.telegram.quiz.entities.Session;
-import ru.stn.telegram.quiz.services.ActionService;
-import ru.stn.telegram.quiz.services.CommandService;
-import ru.stn.telegram.quiz.services.LocalizationService;
-import ru.stn.telegram.quiz.services.SessionService;
+import ru.stn.telegram.quiz.services.*;
 import ru.stn.telegram.quiz.telegram.Config;
 
 import java.util.*;
@@ -33,14 +30,16 @@ public class CommandServiceImpl implements CommandService {
     private final ActionService actionService;
     private final SessionService sessionService;
     private final LocalizationService localizationService;
+    private final ProtocolManagerService protocolManagerService;
 
     private final Map<String, Function<Args, BotApiMethod<?>>> commands = new HashMap<>();
 
-    public CommandServiceImpl(Config config, ActionService actionService, SessionService sessionService, LocalizationService localizationService) {
+    public CommandServiceImpl(Config config, ActionService actionService, SessionService sessionService, LocalizationService localizationService, ProtocolManagerService protocolManagerService) {
         this.config = config;
         this.actionService = actionService;
         this.sessionService = sessionService;
         this.localizationService = localizationService;
+        this.protocolManagerService = protocolManagerService;
         registerCommand("question", this::question);
         registerCommand("keyword", this::keyword);
         registerCommand("message", this::message);
@@ -64,8 +63,10 @@ public class CommandServiceImpl implements CommandService {
         long userId = args.getMessage().getFrom().getId();
         Session session = sessionService.getSession(userId);
         sessionService.setProtocol(session, protocol);
-        Session.State next = sessionService.toInitialState(session);
-        return actionService.sendPrivateMessage(userId, localizationService.getMessage(next.getPrompt(), args.getResourceBundle()));
+        ProtocolService protocolService = protocolManagerService.getProtocolService(protocol);
+        Session.State state = protocolService.getInitialState();
+        sessionService.setState(session, state);
+        return actionService.sendPrivateMessage(userId, localizationService.getMessage(state.getPrompt(), args.getResourceBundle()));
     }
 
     private BotApiMethod<?> question(Args args) {
