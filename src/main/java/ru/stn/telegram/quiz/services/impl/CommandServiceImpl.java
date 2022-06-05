@@ -6,9 +6,7 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.MessageEntity;
-import ru.stn.telegram.quiz.entities.Question;
 import ru.stn.telegram.quiz.entities.Session;
-import ru.stn.telegram.quiz.exceptions.OperationException;
 import ru.stn.telegram.quiz.services.ActionService;
 import ru.stn.telegram.quiz.services.CommandService;
 import ru.stn.telegram.quiz.services.LocalizationService;
@@ -16,7 +14,6 @@ import ru.stn.telegram.quiz.services.SessionService;
 import ru.stn.telegram.quiz.telegram.Config;
 
 import java.util.*;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 @Service
@@ -44,10 +41,11 @@ public class CommandServiceImpl implements CommandService {
         this.actionService = actionService;
         this.sessionService = sessionService;
         this.localizationService = localizationService;
-        registerCommand("get_question", this::getQuestion);
-        registerCommand("set_question", this::setQuestion);
-        registerCommand("get_answer", this::getAnswer);
-        registerCommand("set_answer", this::setAnswer);
+        registerCommand("question", this::question);
+        registerCommand("keyword", this::keyword);
+        registerCommand("message", this::message);
+        registerCommand("timeout", this::timeout);
+        registerCommand("show", this::show);
     }
 
     private void registerCommand(String command, Function<Args, BotApiMethod<?>> handler) {
@@ -55,46 +53,36 @@ public class CommandServiceImpl implements CommandService {
         commands.put(String.format("/%s@%s", command, config.getBotName()), handler);
     }
 
-    private BotApiMethod<?> getQuestion(Args args) {
-        String replyMessage;
-        try {
-            if (args.getMessage().getReplyToMessage() == null || args.getMessage().getReplyToMessage().getForwardFromChat() == null || !args.getMessage().getReplyToMessage().getForwardFromChat().getType().equals("channel")) {
-                throw new OperationException(localizationService.getGetQuestionFailureReplyInvalidMessage(args.getResourceBundle()));
-            }
-            Long chatId = args.getMessage().getReplyToMessage().getForwardFromChat().getId();
-            Integer postId = args.getMessage().getReplyToMessage().getForwardFromMessageId();
-            if (chatId == null || postId == null) {
-                throw new OperationException(localizationService.getGetQuestionFailureReplyInvalidMessage(args.getResourceBundle()));
-            }
-            Question question = actionService.getQuestion(chatId, postId, args.getMessage().getFrom().getId());
-            if (question == null) {
-                throw new OperationException(localizationService.getGetQuestionFailureReplyNoQuestion(args.getResourceBundle()));
-            } else {
-                replyMessage = String.format(localizationService.getGetQuestionSuccessReply(args.getResourceBundle()), question.getText());
-            }
-        } catch (OperationException e) {
-            replyMessage = String.format(localizationService.getGetQuestionFailureReply(args.getResourceBundle()), e.getMessage());
-        }
-        return actionService.sendPrivateMessage(args.getMessage().getFrom().getId(), replyMessage);
-    }
-
-    private BotApiMethod<?> setQuestion(Args args) {
-        if (args.getMessage().getChat().isUserChat() && args.getMessage().getReplyToMessage() == null) {
-            sessionService.toSetQuestionExpectingForward(args.getSession(), args.getCleanText());
-        }
-        return null;
-    }
-
-    private BotApiMethod<?> getAnswer(Args args) {
-        return null;
-    }
-
-    private BotApiMethod<?> setAnswer(Args args) {
-        return null;
-    }
-
     private String getCleanMessageText(String text, MessageEntity entity) {
         return text.substring(entity.getOffset() + entity.getLength()).replaceAll("^\\s+", "");
+    }
+
+    private BotApiMethod<?> commonStateCommandHandler(Session.Protocol protocol, Args args) {
+        if (!actionService.checkPrivatePost(args.getMessage())) {
+            return null;
+        }
+        long userId = args.getMessage().getFrom().getId();
+        Session session = sessionService.getSession(userId);
+        sessionService.setProtocol(session, protocol);
+        Session.State next = sessionService.toInitialState(session);
+        return actionService.sendPrivateMessage(userId, localizationService.getMessage(next.getPrompt(), args.getResourceBundle()));
+    }
+
+    private BotApiMethod<?> question(Args args) {
+        return commonStateCommandHandler(Session.Protocol.FULL, args);
+    }
+    private BotApiMethod<?> keyword(Args args) {
+        return commonStateCommandHandler(Session.Protocol.KEYWORD, args);
+    }
+    private BotApiMethod<?> message(Args args) {
+        return commonStateCommandHandler(Session.Protocol.MESSAGE, args);
+    }
+    private BotApiMethod<?> timeout(Args args) {
+        return commonStateCommandHandler(Session.Protocol.TIMEOUT, args);
+    }
+
+    private BotApiMethod<?> show(Args args) {
+        return commonStateCommandHandler(Session.Protocol.SHOW, args);
     }
 
     @Override

@@ -3,7 +3,6 @@ package ru.stn.telegram.quiz.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.checkerframework.checker.signature.qual.Identifier;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,11 +18,15 @@ public class Question implements Serializable {
     private long id;
     private long chatId;
     private int postId;
-    private String text;
+    private String keyword;
+    private String message;
+    private int timeout;
 
-    public Question(long chatId, int postId, String text) {
+    public Question(long chatId, int postId, String keyword, String message, int timeout) {
         this.chatId = chatId;
         this.postId = postId;
-        this.text = text;
+        this.keyword = keyword;
+        this.message = message;
+        this.timeout = timeout;
     }
 }

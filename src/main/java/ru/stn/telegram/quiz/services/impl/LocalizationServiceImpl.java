@@ -7,47 +7,53 @@ import java.util.ResourceBundle;
 
 @Service
 public class LocalizationServiceImpl implements LocalizationService {
-    private String getMessage(ResourceBundle resourceBundle, Message message) {
+    @Override
+    public String getMessage(Message message, ResourceBundle resourceBundle) {
         return resourceBundle.getString(message.getText());
     }
 
     @Override
-    public String getGetQuestionSuccessReply(ResourceBundle resourceBundle) {
-        return getMessage(resourceBundle, Message.GET_QUESTION_SUCCESS_REPLY);
+    public String getKeywordPrompt(ResourceBundle resourceBundle) {
+        return getMessage(Message.KEYWORD_PROMPT, resourceBundle);
     }
-
     @Override
-    public String getGetQuestionFailureReply(ResourceBundle resourceBundle) {
-        return getMessage(resourceBundle, Message.GET_QUESTION_FAILURE_REPLY);
+    public String getReplyPrompt(ResourceBundle resourceBundle) {
+        return getMessage(Message.MESSAGE_PROMPT, resourceBundle);
     }
-
     @Override
-    public String getGetQuestionFailureReplyInvalidMessage(ResourceBundle resourceBundle) {
-        return getMessage(resourceBundle, Message.GET_QUESTION_FAILURE_INVALID_MESSAGE);
+    public String getTimeoutPrompt(ResourceBundle resourceBundle) {
+        return getMessage(Message.TIMEOUT_PROMPT, resourceBundle);
     }
-
     @Override
-    public String getGetQuestionFailureReplyNoQuestion(ResourceBundle resourceBundle) {
-        return getMessage(resourceBundle, Message.GET_QUESTION_FAILURE_NO_QUESTION);
+    public String getForwardPrompt(ResourceBundle resourceBundle) {
+        return getMessage(Message.FORWARD_PROMPT, resourceBundle);
     }
-
     @Override
-    public String getSetQuestionSuccessReply(ResourceBundle resourceBundle) {
-        return getMessage(resourceBundle, Message.SET_QUESTION_SUCCESS_REPLY);
+    public String getInvalidInput(ResourceBundle resourceBundle) {
+        return getMessage(Message.INVALID_INPUT, resourceBundle);
     }
-
     @Override
-    public String getSetQuestionFailureReply(ResourceBundle resourceBundle) {
-        return getMessage(resourceBundle, Message.SET_QUESTION_FAILURE_REPLY);
+    public String getInsufficientPrivilege(ResourceBundle resourceBundle) {
+        return getMessage(Message.INSUFFICIENT_PRIVILEGE, resourceBundle);
     }
-
     @Override
-    public String getSetQuestionFailureReplyInvalidMessage(ResourceBundle resourceBundle) {
-        return getMessage(resourceBundle, Message.SET_QUESTION_FAILURE_REPLY_INVALID_MESSAGE);
+    public String getSuccess(ResourceBundle resourceBundle) {
+        return getMessage(Message.SUCCESS, resourceBundle);
     }
-
     @Override
-    public String getSetQuestionFailureReplyInsufficientPrivilege(ResourceBundle resourceBundle) {
-        return getMessage(resourceBundle, Message.SET_QUESTION_FAILURE_REPLY_INSUFFICIENT_PRIVILEGE);
+    public String getPartFailure(ResourceBundle resourceBundle) {
+        return getMessage(Message.PART_FAILURE, resourceBundle);
+    }
+    @Override
+    public String getCancelled(ResourceBundle resourceBundle) {
+        return getMessage(Message.CANCELLED, resourceBundle);
+    }
+    @Override
+    public String getNoQuestion(ResourceBundle resourceBundle) {
+        return getMessage(Message.NO_QUESTION, resourceBundle);
+    }
+    @Override
+    public String getQuestionFormat(ResourceBundle resourceBundle) {
+        return getMessage(Message.QUESTION_FORMAT, resourceBundle);
     }
 }
