@@ -46,6 +46,8 @@ public class StateServiceImpl implements StateService {
         put(Session.State.CURRENCY_SINGULAR, StateServiceImpl.this::currencySingularHandler);
         put(Session.State.CURRENCY_DUAL, StateServiceImpl.this::currencyDualHandler);
         put(Session.State.CURRENCY_PLURAL, StateServiceImpl.this::currencyPluralHandler);
+        put(Session.State.COMMENT, StateServiceImpl.this::commentHandler);
+        put(Session.State.PAY, StateServiceImpl.this::payHandler);
     }};
 
     private ProtocolService getProtocolService(Args args) {
@@ -97,6 +99,14 @@ public class StateServiceImpl implements StateService {
 
     private BotApiMethod<?> currencyPluralHandler(Args args) {
         return commonHandler(args, ProtocolService::processCurrencyPlural);
+    }
+
+    private BotApiMethod<?> commentHandler(Args args) {
+        return commonHandler(args, ProtocolService::processComment);
+    }
+
+    private BotApiMethod<?> payHandler(Args args) {
+        return commonHandler(args, ProtocolService::processPay);
     }
 
     @Override

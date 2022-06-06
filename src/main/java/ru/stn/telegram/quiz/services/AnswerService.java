@@ -8,5 +8,6 @@ public interface AnswerService {
     Answer get(long chatId, long userId, int postId);
     boolean processCorrect(Answer answer, Question question);
     boolean processAttempt(Answer answer, Question question);
+    void pay(Answer answer, int amount);
     int getChatBalance(Answer answer);
 }

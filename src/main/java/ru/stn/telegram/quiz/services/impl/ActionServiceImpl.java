@@ -46,6 +46,10 @@ public class ActionServiceImpl implements ActionService {
         return new Post(chatId, postId);
     }
     @Override
+    public Post getPublicPostForward(Message message) {
+        return null;
+    }
+    @Override
     public Post getPrivatePost(Message message) {
         if (message == null || message.getForwardFromChat() == null || !message.getForwardFromChat().getType().equals("channel")) {
             return null;

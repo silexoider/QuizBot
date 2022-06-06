@@ -131,6 +131,16 @@ public abstract class CommonProtocolServiceImpl implements ProtocolService {
         return commonStateHandler(() -> processCurrencyPluralInternal(session, message, resourceBundle), session, message, resourceBundle);
     }
 
+    @Override
+    public BotApiMethod<?> processComment(Session session, Message message, ResourceBundle resourceBundle) {
+        return commonStateHandler(() -> processCommentInternal(session, message, resourceBundle), session, message, resourceBundle);
+    }
+
+    @Override
+    public BotApiMethod<?> processPay(Session session, Message message, ResourceBundle resourceBundle) {
+        return commonStateHandler(() -> processPayInternal(session, message, resourceBundle), session, message, resourceBundle);
+    }
+
     protected ActionService.Post checkForward(Session session, Message message, ResourceBundle resourceBundle) {
         ActionService.Post post = actionService.getPrivatePost(message);
         if (post == null) {
@@ -195,6 +205,17 @@ public abstract class CommonProtocolServiceImpl implements ProtocolService {
     protected Session.State processCurrencyPluralInternal(Session session, Message message, ResourceBundle resourceBundle) {
         sessionService.setCurrencyPlural(session, message.getText());
         return transitions.get(Session.State.CURRENCY_PLURAL);
+    }
+
+    protected Session.State processCommentInternal(Session session, Message message, ResourceBundle resourceBundle) {
+        sessionService.setCommentUserId(session, message.getFrom().getId());
+        return transitions.get(Session.State.COMMENT);
+    }
+
+    protected Session.State processPayInternal(Session session, Message message, ResourceBundle resourceBundle) {
+        int amount = Integer.parseInt(message.getText());
+        sessionService.setPayAmount(session, amount);
+        return transitions.get(Session.State.PAY);
     }
 
     protected abstract BotApiMethod<?> commit(Session session, ResourceBundle resourceBundle);

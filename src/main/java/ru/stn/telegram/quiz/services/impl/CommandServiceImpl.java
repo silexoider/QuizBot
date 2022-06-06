@@ -50,6 +50,7 @@ public class CommandServiceImpl implements CommandService {
         registerCommand("maximum", this::maximum);
         registerCommand("show", this::show);
         registerCommand("currency", this::currency);
+        registerCommand("pay", this::pay);
         registerCommand("help", this::help);
     }
 
@@ -106,6 +107,10 @@ public class CommandServiceImpl implements CommandService {
 
     private BotApiMethod<?> currency(Args args) {
         return commonStateCommandHandler(Session.Protocol.CURRENCY, args);
+    }
+
+    private BotApiMethod<?> pay(Args args) {
+        return commonStateCommandHandler(Session.Protocol.PAY, args);
     }
 
     private BotApiMethod<?> help(Args args) {

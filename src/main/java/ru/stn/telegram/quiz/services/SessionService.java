@@ -18,4 +18,6 @@ public interface SessionService {
     void setCurrencySingular(Session session, String singular);
     void setCurrencyDual(Session session, String dual);
     void setCurrencyPlural(Session session, String plural);
+    void setCommentUserId(Session session, long commentUserId);
+    void setPayAmount(Session session, int amount);
 }

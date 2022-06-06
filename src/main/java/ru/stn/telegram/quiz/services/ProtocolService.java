@@ -18,4 +18,6 @@ public interface ProtocolService {
     BotApiMethod<?> processCurrencySingular(Session session, Message message, ResourceBundle resourceBundle);
     BotApiMethod<?> processCurrencyDual(Session session, Message message, ResourceBundle resourceBundle);
     BotApiMethod<?> processCurrencyPlural(Session session, Message message, ResourceBundle resourceBundle);
+    BotApiMethod<?> processComment(Session session, Message message, ResourceBundle resourceBundle);
+    BotApiMethod<?> processPay(Session session, Message message, ResourceBundle resourceBundle);
 }

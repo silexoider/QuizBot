@@ -88,4 +88,12 @@ public class LocalizationServiceImpl implements LocalizationService {
     public String getHelpFormat(ResourceBundle resourceBundle) {
         return getMessage(Message.HELP_FORMAT, resourceBundle);
     }
+    @Override
+    public String getPayAmountPrompt(ResourceBundle resourceBundle) {
+        return getMessage(Message.PAY_AMOUNT_PROMPT, resourceBundle);
+    }
+    @Override
+    public String getCommentPrompt(ResourceBundle resourceBundle) {
+        return getMessage(Message.COMMENT_PROMPT, resourceBundle);
+    }
 }

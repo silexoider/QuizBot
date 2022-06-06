@@ -21,6 +21,9 @@ public class Session {
         CURRENCY_DUAL(CURRENCY_PLURAL, LocalizationService.Message.CURRENCY_DUAL),
         CURRENCY_SINGULAR(CURRENCY_DUAL, LocalizationService.Message.CURRENCY_SINGULAR),
 
+        PAY(DEFAULT, LocalizationService.Message.PAY_AMOUNT_PROMPT),
+        COMMENT(PAY, LocalizationService.Message.COMMENT_PROMPT),
+
         MAXIMUM(DEFAULT, LocalizationService.Message.MAXIMUM_PROMPT),
         ATTEMPT(MAXIMUM, LocalizationService.Message.ATTEMPT_PROMPT),
         CORRECT(ATTEMPT, LocalizationService.Message.CORRECT_PROMPT),
@@ -50,7 +53,8 @@ public class Session {
         ATTEMPT("Attempt"),
         MAXIMUM("Maximum"),
         SHOW("Show"),
-        CURRENCY("Currency");
+        CURRENCY("Currency"),
+        PAY("Pay");
 
         @Getter
         private String name;
@@ -73,6 +77,8 @@ public class Session {
     private String currencySingular;
     private String currencyDual;
     private String currencyPlural;
+    private long commentUserId;
+    private int amount;
     private State state;
     private Protocol protocol;
 

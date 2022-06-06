@@ -104,4 +104,14 @@ public class SessionServiceImpl implements SessionService {
     public void setCurrencyPlural(Session session, String plural) {
         setAttribute(session, session::setCurrencyPlural, plural);
     }
+
+    @Override
+    public void setCommentUserId(Session session, long commentUserId) {
+        setAttribute(session, session::setCommentUserId, commentUserId);
+    }
+
+    @Override
+    public void setPayAmount(Session session, int amount) {
+        setAttribute(session, session::setAmount, amount);
+    }
 }

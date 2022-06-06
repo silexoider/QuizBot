@@ -25,7 +25,9 @@ public interface LocalizationService {
         CURRENCY_SINGULAR("currency_singular"),
         CURRENCY_DUAL("currency_dual"),
         CURRENCY_PLURAL("currency_plural"),
-        HELP_FORMAT("help_format");
+        HELP_FORMAT("help_format"),
+        PAY_AMOUNT_PROMPT("pay_amount_prompt"),
+        COMMENT_PROMPT("comment_prompt");
 
         @Getter
         private final String text;
@@ -55,4 +57,6 @@ public interface LocalizationService {
     String getCurrencyDual(ResourceBundle resourceBundle);
     String getCurrencyPlural(ResourceBundle resourceBundle);
     String getHelpFormat(ResourceBundle resourceBundle);
+    String getPayAmountPrompt(ResourceBundle resourceBundle);
+    String getCommentPrompt(ResourceBundle resourceBundle);
 }

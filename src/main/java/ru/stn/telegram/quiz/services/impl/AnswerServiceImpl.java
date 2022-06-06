@@ -54,6 +54,12 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
+    public void pay(Answer answer, int amount) {
+        answer.setBalance(answer.getBalance() + amount);
+        answerRepository.save(answer);
+    }
+
+    @Override
     public int getChatBalance(Answer answer) {
         return answerRepository.getChatBalance(answer.getChatId(), answer.getUserId());
     }

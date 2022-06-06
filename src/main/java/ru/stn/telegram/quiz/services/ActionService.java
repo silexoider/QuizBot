@@ -18,6 +18,7 @@ public interface ActionService {
 
     boolean isSuperUser(long chatId, long userId);
     Post getPublicPost(Message message);
+    Post getPublicPostForward(Message message);
     Post getPrivatePost(Message message);
     boolean checkPrivatePost(Message message);
     boolean checkPublicPost(Message message);
