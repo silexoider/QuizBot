@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import ru.stn.telegram.quiz.entities.Answer;
+import ru.stn.telegram.quiz.entities.Channel;
 import ru.stn.telegram.quiz.entities.Question;
 import ru.stn.telegram.quiz.entities.Session;
 import ru.stn.telegram.quiz.services.*;
@@ -18,9 +20,12 @@ public class MessageServiceImpl implements MessageService {
     private static final String LOCALIZATION_RESOURCE_FILE_NAME = "messages";
 
     private final StateService stateService;
+    private final AnswerService answerService;
     private final ActionService actionService;
     private final SessionService sessionService;
+    private final ChannelService channelService;
     private final QuestionService questionService;
+    private final LocalizationService localizationService;
 
     private final List<AbstractMap.Entry<Function<Message, Boolean>, BiFunction<Message, ResourceBundle, BotApiMethod<?>>>> globalHandlers = Arrays.asList(
             new AbstractMap.SimpleEntry<Function<Message, Boolean>, BiFunction<Message, ResourceBundle, BotApiMethod<?>>>(MessageServiceImpl.this::checkPrivate, MessageServiceImpl.this::processPrivate),
@@ -51,10 +56,27 @@ public class MessageServiceImpl implements MessageService {
         if (question == null) {
             return null;
         }
-        if (questionService.checkKeyword(question, message) && questionService.checkTimeout(question, message)) {
-            return actionService.sendPrivateMessage(message.getFrom().getId(), question.getMessage());
+        if (questionService.checkTimeout(question, message)) {
+            Answer answer = answerService.get(post.getChatId(), message.getFrom().getId(), post.getPostId());
+            if (questionService.checkKeyword(question, message) && answerService.processCorrect(answer, question)) {
+                return actionService.sendPrivateMessage(
+                        message.getFrom().getId(),
+                        getSuccessMessageText(question, answer, channelService.get(post.getChatId()), resourceBundle)
+                );
+            } else {
+                answerService.processAttempt(answer, question);
+            }
         }
         return null;
+    }
+
+    private String getSuccessMessageText(Question question, Answer answer, Channel channel, ResourceBundle resourceBundle) {
+        return String.format(
+                localizationService.getSuccessNotificationFormat(resourceBundle),
+                channelService.getValueInCurrency(channel, question.getCorrect()),
+                channelService.getValueInCurrency(channel, answerService.getChatBalance(answer)),
+                question.getMessage()
+        );
     }
 
     @Override

@@ -20,7 +20,12 @@ public interface LocalizationService {
         PART_FAILURE("part_failure"),
         CANCELLED("cancelled"),
         NO_QUESTION("no_question"),
-        QUESTION_FORMAT("question_format");
+        QUESTION_FORMAT("question_format"),
+        SUCCESS_NOTIFICATION_FORMAT("success_notification_format"),
+        CURRENCY_SINGULAR("currency_singular"),
+        CURRENCY_DUAL("currency_dual"),
+        CURRENCY_PLURAL("currency_plural"),
+        HELP_FORMAT("help_format");
 
         @Getter
         private final String text;
@@ -45,4 +50,9 @@ public interface LocalizationService {
     String getCancelled(ResourceBundle resourceBundle);
     String getNoQuestion(ResourceBundle resourceBundle);
     String getQuestionFormat(ResourceBundle resourceBundle);
+    String getSuccessNotificationFormat(ResourceBundle resourceBundle);
+    String getCurrencySingular(ResourceBundle resourceBundle);
+    String getCurrencyDual(ResourceBundle resourceBundle);
+    String getCurrencyPlural(ResourceBundle resourceBundle);
+    String getHelpFormat(ResourceBundle resourceBundle);
 }

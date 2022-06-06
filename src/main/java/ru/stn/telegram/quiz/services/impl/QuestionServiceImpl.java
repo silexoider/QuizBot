@@ -77,8 +77,23 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    public boolean setCorrect(long chatId, int postId, int correct) {
+        return setAttribute(chatId, postId, Question::setCorrect, correct);
+    }
+
+    @Override
+    public boolean setAttempt(long chatId, int postId, int attempt) {
+        return setAttribute(chatId, postId, Question::setAttempt, attempt);
+    }
+
+    @Override
+    public boolean setMaximum(long chatId, int postId, int maximum) {
+        return setAttribute(chatId, postId, Question::setMaximum, maximum);
+    }
+
+    @Override
     public boolean checkKeyword(Question question, Message message) {
-        Pattern pattern = Pattern.compile(String.format("\\b%s\\b", Pattern.quote(question.getKeyword())), Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile(String.format("\\b%s\\b", Pattern.quote(question.getKeyword())), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
         Matcher matcher = pattern.matcher(message.getText());
         return matcher.find();
     }

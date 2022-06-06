@@ -45,7 +45,12 @@ public class CommandServiceImpl implements CommandService {
         registerCommand("keyword", this::keyword);
         registerCommand("message", this::message);
         registerCommand("timeout", this::timeout);
+        registerCommand("correct", this::correct);
+        registerCommand("attempt", this::attempt);
+        registerCommand("maximum", this::maximum);
         registerCommand("show", this::show);
+        registerCommand("currency", this::currency);
+        registerCommand("help", this::help);
     }
 
     private void registerCommand(String command, Function<Args, BotApiMethod<?>> handler) {
@@ -85,9 +90,34 @@ public class CommandServiceImpl implements CommandService {
     private BotApiMethod<?> timeout(Args args) {
         return commonStateCommandHandler(Session.Protocol.TIMEOUT, args);
     }
+    private BotApiMethod<?> correct(Args args) {
+        return commonStateCommandHandler(Session.Protocol.CORRECT, args);
+    }
+    private BotApiMethod<?> attempt(Args args) {
+        return commonStateCommandHandler(Session.Protocol.ATTEMPT, args);
+    }
+    private BotApiMethod<?> maximum(Args args) {
+        return commonStateCommandHandler(Session.Protocol.MAXIMUM, args);
+    }
 
     private BotApiMethod<?> show(Args args) {
         return commonStateCommandHandler(Session.Protocol.SHOW, args);
+    }
+
+    private BotApiMethod<?> currency(Args args) {
+        return commonStateCommandHandler(Session.Protocol.CURRENCY, args);
+    }
+
+    private BotApiMethod<?> help(Args args) {
+        return actionService.sendPrivateMessage(
+                args.getMessage().getFrom().getId(),
+                String.format(
+                        localizationService.getHelpFormat(args.getResourceBundle()),
+                        config.getCorrect(),
+                        config.getAttempt(),
+                        config.getMaximum()
+                )
+        );
     }
 
     @Override

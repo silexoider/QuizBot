@@ -15,4 +15,7 @@ public interface SessionService {
     void setCorrect(Session session, int timeout);
     void setAttempt(Session session, int timeout);
     void setMaximum(Session session, int timeout);
+    void setCurrencySingular(Session session, String singular);
+    void setCurrencyDual(Session session, String dual);
+    void setCurrencyPlural(Session session, String plural);
 }

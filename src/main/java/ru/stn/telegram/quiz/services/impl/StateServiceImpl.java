@@ -43,6 +43,9 @@ public class StateServiceImpl implements StateService {
         put(Session.State.CORRECT, StateServiceImpl.this::correctHandler);
         put(Session.State.ATTEMPT, StateServiceImpl.this::attemptHandler);
         put(Session.State.MAXIMUM, StateServiceImpl.this::maximumHandler);
+        put(Session.State.CURRENCY_SINGULAR, StateServiceImpl.this::currencySingularHandler);
+        put(Session.State.CURRENCY_DUAL, StateServiceImpl.this::currencyDualHandler);
+        put(Session.State.CURRENCY_PLURAL, StateServiceImpl.this::currencyPluralHandler);
     }};
 
     private ProtocolService getProtocolService(Args args) {
@@ -82,6 +85,18 @@ public class StateServiceImpl implements StateService {
 
     private BotApiMethod<?> maximumHandler(Args args) {
         return commonHandler(args, ProtocolService::processMaximum);
+    }
+
+    private BotApiMethod<?> currencySingularHandler(Args args) {
+        return commonHandler(args, ProtocolService::processCurrencySingular);
+    }
+
+    private BotApiMethod<?> currencyDualHandler(Args args) {
+        return commonHandler(args, ProtocolService::processCurrencyDual);
+    }
+
+    private BotApiMethod<?> currencyPluralHandler(Args args) {
+        return commonHandler(args, ProtocolService::processCurrencyPlural);
     }
 
     @Override

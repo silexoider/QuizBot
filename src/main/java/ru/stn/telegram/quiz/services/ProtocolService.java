@@ -15,4 +15,7 @@ public interface ProtocolService {
     BotApiMethod<?> processCorrect(Session session, Message message, ResourceBundle resourceBundle);
     BotApiMethod<?> processAttempt(Session session, Message message, ResourceBundle resourceBundle);
     BotApiMethod<?> processMaximum(Session session, Message message, ResourceBundle resourceBundle);
+    BotApiMethod<?> processCurrencySingular(Session session, Message message, ResourceBundle resourceBundle);
+    BotApiMethod<?> processCurrencyDual(Session session, Message message, ResourceBundle resourceBundle);
+    BotApiMethod<?> processCurrencyPlural(Session session, Message message, ResourceBundle resourceBundle);
 }

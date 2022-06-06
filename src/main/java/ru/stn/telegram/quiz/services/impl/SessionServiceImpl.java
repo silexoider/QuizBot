@@ -89,4 +89,19 @@ public class SessionServiceImpl implements SessionService {
     public void setMaximum(Session session, int maximum) {
         setAttribute(session, session::setMaximum, maximum);
     }
+
+    @Override
+    public void setCurrencySingular(Session session, String singular) {
+        setAttribute(session, session::setCurrencySingular, singular);
+    }
+
+    @Override
+    public void setCurrencyDual(Session session, String dual) {
+        setAttribute(session, session::setCurrencyDual, dual);
+    }
+
+    @Override
+    public void setCurrencyPlural(Session session, String plural) {
+        setAttribute(session, session::setCurrencyPlural, plural);
+    }
 }

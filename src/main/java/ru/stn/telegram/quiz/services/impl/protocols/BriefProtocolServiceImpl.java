@@ -11,7 +11,7 @@ import ru.stn.telegram.quiz.telegram.Config;
 
 import java.util.ResourceBundle;
 
-@Service("Brief")
+@Service("BriefProtocol")
 public class BriefProtocolServiceImpl extends CommonProtocolServiceImpl {
     private final QuestionService questionService;
 

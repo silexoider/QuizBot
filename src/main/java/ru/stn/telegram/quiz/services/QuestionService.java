@@ -10,6 +10,9 @@ public interface QuestionService {
     boolean setKeyword(long chatId, int postId, String keyword);
     boolean setMessage(long chatId, int postId, String message);
     boolean setTimeout(long chatId, int postId, int timeout);
+    boolean setCorrect(long chatId, int postId, int correct);
+    boolean setAttempt(long chatId, int postId, int attempt);
+    boolean setMaximum(long chatId, int postId, int maximum);
     boolean checkKeyword(Question question, Message message);
     boolean checkTimeout(Question question, Message message);
 }

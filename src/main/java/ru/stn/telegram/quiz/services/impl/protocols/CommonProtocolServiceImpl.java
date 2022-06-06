@@ -116,6 +116,21 @@ public abstract class CommonProtocolServiceImpl implements ProtocolService {
         return commonStateHandler(() -> processMaximumInternal(session, message, resourceBundle), session, message, resourceBundle);
     }
 
+    @Override
+    public BotApiMethod<?> processCurrencySingular(Session session, Message message, ResourceBundle resourceBundle) {
+        return commonStateHandler(() -> processCurrencySingularInternal(session, message, resourceBundle), session, message, resourceBundle);
+    }
+
+    @Override
+    public BotApiMethod<?> processCurrencyDual(Session session, Message message, ResourceBundle resourceBundle) {
+        return commonStateHandler(() -> processCurrencyDualInternal(session, message, resourceBundle), session, message, resourceBundle);
+    }
+
+    @Override
+    public BotApiMethod<?> processCurrencyPlural(Session session, Message message, ResourceBundle resourceBundle) {
+        return commonStateHandler(() -> processCurrencyPluralInternal(session, message, resourceBundle), session, message, resourceBundle);
+    }
+
     protected ActionService.Post checkForward(Session session, Message message, ResourceBundle resourceBundle) {
         ActionService.Post post = actionService.getPrivatePost(message);
         if (post == null) {
@@ -165,6 +180,21 @@ public abstract class CommonProtocolServiceImpl implements ProtocolService {
         int timeout = Integer.parseInt(message.getText());
         sessionService.setMaximum(session, timeout);
         return transitions.get(Session.State.MAXIMUM);
+    }
+
+    protected Session.State processCurrencySingularInternal(Session session, Message message, ResourceBundle resourceBundle) {
+        sessionService.setCurrencySingular(session, message.getText());
+        return transitions.get(Session.State.CURRENCY_SINGULAR);
+    }
+
+    protected Session.State processCurrencyDualInternal(Session session, Message message, ResourceBundle resourceBundle) {
+        sessionService.setCurrencyDual(session, message.getText());
+        return transitions.get(Session.State.CURRENCY_DUAL);
+    }
+
+    protected Session.State processCurrencyPluralInternal(Session session, Message message, ResourceBundle resourceBundle) {
+        sessionService.setCurrencyPlural(session, message.getText());
+        return transitions.get(Session.State.CURRENCY_PLURAL);
     }
 
     protected abstract BotApiMethod<?> commit(Session session, ResourceBundle resourceBundle);

@@ -17,6 +17,10 @@ public class Session {
     public enum State {
         DEFAULT(null, null),
 
+        CURRENCY_PLURAL(DEFAULT, LocalizationService.Message.CURRENCY_PLURAL),
+        CURRENCY_DUAL(CURRENCY_PLURAL, LocalizationService.Message.CURRENCY_DUAL),
+        CURRENCY_SINGULAR(CURRENCY_DUAL, LocalizationService.Message.CURRENCY_SINGULAR),
+
         MAXIMUM(DEFAULT, LocalizationService.Message.MAXIMUM_PROMPT),
         ATTEMPT(MAXIMUM, LocalizationService.Message.ATTEMPT_PROMPT),
         CORRECT(ATTEMPT, LocalizationService.Message.CORRECT_PROMPT),
@@ -45,7 +49,8 @@ public class Session {
         CORRECT("Correct"),
         ATTEMPT("Attempt"),
         MAXIMUM("Maximum"),
-        SHOW("Show");
+        SHOW("Show"),
+        CURRENCY("Currency");
 
         @Getter
         private String name;
@@ -65,6 +70,9 @@ public class Session {
     private int correct;
     private int attempt;
     private int maximum;
+    private String currencySingular;
+    private String currencyDual;
+    private String currencyPlural;
     private State state;
     private Protocol protocol;
 

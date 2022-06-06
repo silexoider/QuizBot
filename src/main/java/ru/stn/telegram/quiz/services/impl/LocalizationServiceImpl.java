@@ -68,4 +68,24 @@ public class LocalizationServiceImpl implements LocalizationService {
     public String getQuestionFormat(ResourceBundle resourceBundle) {
         return getMessage(Message.QUESTION_FORMAT, resourceBundle);
     }
+    @Override
+    public String getSuccessNotificationFormat(ResourceBundle resourceBundle) {
+        return getMessage(Message.SUCCESS_NOTIFICATION_FORMAT, resourceBundle);
+    }
+    @Override
+    public String getCurrencySingular(ResourceBundle resourceBundle) {
+        return getMessage(Message.CURRENCY_SINGULAR, resourceBundle);
+    }
+    @Override
+    public String getCurrencyDual(ResourceBundle resourceBundle) {
+        return getMessage(Message.CURRENCY_DUAL, resourceBundle);
+    }
+    @Override
+    public String getCurrencyPlural(ResourceBundle resourceBundle) {
+        return getMessage(Message.CURRENCY_PLURAL, resourceBundle);
+    }
+    @Override
+    public String getHelpFormat(ResourceBundle resourceBundle) {
+        return getMessage(Message.HELP_FORMAT, resourceBundle);
+    }
 }
