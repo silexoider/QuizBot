@@ -11,4 +11,11 @@ public class Config {
     private String botName;
     @Value("${bot.token}")
     private String botToken;
+
+    @Value("${bot.question.correct}")
+    private int correct;
+    @Value("${bot.question.attempt}")
+    private int attempt;
+    @Value("${bot.question.maximum}")
+    private int maximum;
 }

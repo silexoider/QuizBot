@@ -7,10 +7,13 @@ import java.util.ResourceBundle;
 
 public interface LocalizationService {
     enum Message {
+        FORWARD_PROMPT("forward_prompt"),
         KEYWORD_PROMPT("keyword_prompt"),
         MESSAGE_PROMPT("message_prompt"),
         TIMEOUT_PROMPT("timeout_prompt"),
-        FORWARD_PROMPT("forward_prompt"),
+        CORRECT_PROMPT("correct_prompt"),
+        ATTEMPT_PROMPT("attempt_prompt"),
+        MAXIMUM_PROMPT("maximum_prompt"),
         INVALID_INPUT("invalid_input"),
         INSUFFICIENT_PRIVILEGE("insufficient_privilege"),
         SUCCESS("success"),
@@ -28,10 +31,13 @@ public interface LocalizationService {
     }
 
     String getMessage(Message message, ResourceBundle resourceBundle);
+    String getForwardPrompt(ResourceBundle resourceBundle);
     String getKeywordPrompt(ResourceBundle resourceBundle);
     String getReplyPrompt(ResourceBundle resourceBundle);
     String getTimeoutPrompt(ResourceBundle resourceBundle);
-    String getForwardPrompt(ResourceBundle resourceBundle);
+    String getCorrectPrompt(ResourceBundle resourceBundle);
+    String getAttemptPrompt(ResourceBundle resourceBundle);
+    String getMaximumPrompt(ResourceBundle resourceBundle);
     String getInvalidInput(ResourceBundle resourceBundle);
     String getInsufficientPrivilege(ResourceBundle resourceBundle);
     String getSuccess(ResourceBundle resourceBundle);

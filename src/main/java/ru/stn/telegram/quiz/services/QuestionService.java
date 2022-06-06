@@ -5,7 +5,8 @@ import ru.stn.telegram.quiz.entities.Question;
 
 public interface QuestionService {
     Question find(long chatId, int postId);
-    Question setQuestion(long chatId, int postId, String keyword, String message, int timeout);
+    Question setQuestionBrief(long chatId, int postId, String keyword, String message, int timeout);
+    Question setQuestionFull(long chatId, int postId, String keyword, String message, int timeout, int correct, int attempt, int maximum);
     boolean setKeyword(long chatId, int postId, String keyword);
     boolean setMessage(long chatId, int postId, String message);
     boolean setTimeout(long chatId, int postId, int timeout);

@@ -13,7 +13,7 @@ import ru.stn.telegram.quiz.telegram.Config;
 import java.util.*;
 import java.util.function.Function;
 
-@Service
+@Service("Private")
 public class CommandServiceImpl implements CommandService {
     @Getter
     @RequiredArgsConstructor
@@ -40,7 +40,8 @@ public class CommandServiceImpl implements CommandService {
         this.sessionService = sessionService;
         this.localizationService = localizationService;
         this.protocolManagerService = protocolManagerService;
-        registerCommand("question", this::question);
+        registerCommand("question_brief", this::questionBrief);
+        registerCommand("question_full", this::questionFull);
         registerCommand("keyword", this::keyword);
         registerCommand("message", this::message);
         registerCommand("timeout", this::timeout);
@@ -69,7 +70,10 @@ public class CommandServiceImpl implements CommandService {
         return actionService.sendPrivateMessage(userId, localizationService.getMessage(state.getPrompt(), args.getResourceBundle()));
     }
 
-    private BotApiMethod<?> question(Args args) {
+    private BotApiMethod<?> questionBrief(Args args) {
+        return commonStateCommandHandler(Session.Protocol.BRIEF, args);
+    }
+    private BotApiMethod<?> questionFull(Args args) {
         return commonStateCommandHandler(Session.Protocol.FULL, args);
     }
     private BotApiMethod<?> keyword(Args args) {

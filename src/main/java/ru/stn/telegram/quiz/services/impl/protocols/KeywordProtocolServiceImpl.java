@@ -15,12 +15,9 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 @Service("KeywordProtocol")
-public class KeywordProtocolServiceImpl extends CommonProtocolServiceImpl {
-    private final QuestionService questionService;
-
+public class KeywordProtocolServiceImpl extends CommonPartProtocolServiceImpl {
     public KeywordProtocolServiceImpl(Config config, ActionService actionService, SessionService sessionService, LocalizationService localizationService, QuestionService questionService) {
-        super(Session.State.FORWARD, config, actionService, sessionService, localizationService);
-        this.questionService = questionService;
+        super(Session.State.FORWARD, config, actionService, sessionService, localizationService, questionService);
         this.transitions.put(Session.State.KEYWORD, Session.State.DEFAULT);
     }
 

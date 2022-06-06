@@ -2,22 +2,17 @@ package ru.stn.telegram.quiz.services.impl;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.checkerframework.checker.units.qual.A;
-import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.stn.telegram.quiz.entities.Session;
-import ru.stn.telegram.quiz.exceptions.InvalidFormatException;
-import ru.stn.telegram.quiz.exceptions.OperationCancelledException;
 import ru.stn.telegram.quiz.services.*;
-import ru.stn.telegram.quiz.telegram.Config;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +30,7 @@ public class StateServiceImpl implements StateService {
         BotApiMethod<?> apply(ProtocolService protocolService, Session session, Message message, ResourceBundle resourceBundle);
     }
 
-    private final SessionService sessionService;
+    @Qualifier("Private")
     private final CommandService commandService;
     private final ProtocolManagerService protocolManagerService;
 
@@ -45,6 +40,9 @@ public class StateServiceImpl implements StateService {
         put(Session.State.KEYWORD, StateServiceImpl.this::keywordHandler);
         put(Session.State.MESSAGE, StateServiceImpl.this::messageHandler);
         put(Session.State.TIMEOUT, StateServiceImpl.this::timeoutHandler);
+        put(Session.State.CORRECT, StateServiceImpl.this::correctHandler);
+        put(Session.State.ATTEMPT, StateServiceImpl.this::attemptHandler);
+        put(Session.State.MAXIMUM, StateServiceImpl.this::maximumHandler);
     }};
 
     private ProtocolService getProtocolService(Args args) {
@@ -72,6 +70,18 @@ public class StateServiceImpl implements StateService {
 
     private BotApiMethod<?> timeoutHandler(Args args) {
         return commonHandler(args, ProtocolService::processTimeout);
+    }
+
+    private BotApiMethod<?> correctHandler(Args args) {
+        return commonHandler(args, ProtocolService::processCorrect);
+    }
+
+    private BotApiMethod<?> attemptHandler(Args args) {
+        return commonHandler(args, ProtocolService::processAttempt);
+    }
+
+    private BotApiMethod<?> maximumHandler(Args args) {
+        return commonHandler(args, ProtocolService::processMaximum);
     }
 
     @Override

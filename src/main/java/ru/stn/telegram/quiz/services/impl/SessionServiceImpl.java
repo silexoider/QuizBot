@@ -74,4 +74,19 @@ public class SessionServiceImpl implements SessionService {
     public void setTimeout(Session session, int timeout) {
         setAttribute(session, session::setTimeout, timeout);
     }
+
+    @Override
+    public void setCorrect(Session session, int correct) {
+        setAttribute(session, session::setCorrect, correct);
+    }
+
+    @Override
+    public void setAttempt(Session session, int attempt) {
+        setAttribute(session, session::setAttempt, attempt);
+    }
+
+    @Override
+    public void setMaximum(Session session, int maximum) {
+        setAttribute(session, session::setMaximum, maximum);
+    }
 }

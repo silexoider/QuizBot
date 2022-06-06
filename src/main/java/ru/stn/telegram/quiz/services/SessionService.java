@@ -12,4 +12,7 @@ public interface SessionService {
     void setKeyword(Session session, String keyword);
     void setMessage(Session session, String message);
     void setTimeout(Session session, int timeout);
+    void setCorrect(Session session, int timeout);
+    void setAttempt(Session session, int timeout);
+    void setMaximum(Session session, int timeout);
 }

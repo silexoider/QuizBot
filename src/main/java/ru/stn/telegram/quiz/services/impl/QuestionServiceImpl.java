@@ -7,6 +7,7 @@ import ru.stn.telegram.quiz.entities.Question;
 import ru.stn.telegram.quiz.repositories.QuestionRepository;
 import ru.stn.telegram.quiz.services.LocalizationService;
 import ru.stn.telegram.quiz.services.QuestionService;
+import ru.stn.telegram.quiz.telegram.Config;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -20,6 +21,7 @@ import java.util.regex.Pattern;
 @Service
 @RequiredArgsConstructor
 public class QuestionServiceImpl implements QuestionService {
+    private final Config config;
     private final QuestionRepository questionRepository;
 
     @Override
@@ -28,17 +30,25 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Question setQuestion(long chatId, int postId, String keyword, String message, int timeout) {
+    public Question setQuestionFull(long chatId, int postId, String keyword, String message, int timeout, int correct, int attempt, int maximum) {
         Question question = find(chatId, postId);
         if (question == null) {
-            question = new Question(chatId, postId, keyword, message, timeout);
+            question = new Question(chatId, postId, keyword, message, timeout, correct, attempt, maximum);
         } else {
             question.setKeyword(keyword);
             question.setMessage(message);
             question.setTimeout(timeout);
+            question.setCorrect(correct);
+            question.setAttempt(attempt);
+            question.setMaximum(maximum);
         }
         questionRepository.save(question);
         return question;
+    }
+
+    @Override
+    public Question setQuestionBrief(long chatId, int postId, String keyword, String message, int timeout) {
+        return setQuestionFull(chatId, postId, keyword, message, timeout, config.getCorrect(), config.getAttempt(), config.getMaximum());
     }
 
     private <T> boolean setAttribute(long chatId, int postId, BiConsumer<Question, T> action, T value) {

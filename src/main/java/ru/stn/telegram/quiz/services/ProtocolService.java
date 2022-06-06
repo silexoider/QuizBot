@@ -12,5 +12,7 @@ public interface ProtocolService {
     BotApiMethod<?> processKeyword(Session session, Message message, ResourceBundle resourceBundle);
     BotApiMethod<?> processMessage(Session session, Message message, ResourceBundle resourceBundle);
     BotApiMethod<?> processTimeout(Session session, Message message, ResourceBundle resourceBundle);
-
+    BotApiMethod<?> processCorrect(Session session, Message message, ResourceBundle resourceBundle);
+    BotApiMethod<?> processAttempt(Session session, Message message, ResourceBundle resourceBundle);
+    BotApiMethod<?> processMaximum(Session session, Message message, ResourceBundle resourceBundle);
 }

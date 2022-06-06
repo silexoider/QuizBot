@@ -14,12 +14,9 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 @Service("MessageProtocol")
-public class MessageProtocolServiceImpl extends CommonProtocolServiceImpl {
-    private final QuestionService questionService;
-
+public class MessageProtocolServiceImpl extends CommonPartProtocolServiceImpl {
     public MessageProtocolServiceImpl(Config config, ActionService actionService, SessionService sessionService, LocalizationService localizationService, QuestionService questionService) {
-        super(Session.State.FORWARD, config, actionService, sessionService, localizationService);
-        this.questionService = questionService;
+        super(Session.State.FORWARD, config, actionService, sessionService, localizationService, questionService);
         this.transitions.put(Session.State.FORWARD, Session.State.MESSAGE);
         this.transitions.put(Session.State.MESSAGE, Session.State.DEFAULT);
     }

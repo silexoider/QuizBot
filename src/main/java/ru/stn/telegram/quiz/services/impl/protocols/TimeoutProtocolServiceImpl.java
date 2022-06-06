@@ -14,12 +14,9 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 @Service("TimeoutProtocol")
-public class TimeoutProtocolServiceImpl extends CommonProtocolServiceImpl {
-    private final QuestionService questionService;
-
+public class TimeoutProtocolServiceImpl extends CommonPartProtocolServiceImpl {
     public TimeoutProtocolServiceImpl(Config config, ActionService actionService, SessionService sessionService, LocalizationService localizationService, QuestionService questionService) {
-        super(Session.State.FORWARD, config, actionService, sessionService, localizationService);
-        this.questionService = questionService;
+        super(Session.State.FORWARD, config, actionService, sessionService, localizationService, questionService);
         this.transitions.put(Session.State.FORWARD, Session.State.TIMEOUT);
         this.transitions.put(Session.State.TIMEOUT, Session.State.DEFAULT);
     }

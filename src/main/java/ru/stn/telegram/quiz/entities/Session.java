@@ -17,7 +17,10 @@ public class Session {
     public enum State {
         DEFAULT(null, null),
 
-        TIMEOUT(DEFAULT, LocalizationService.Message.TIMEOUT_PROMPT),
+        MAXIMUM(DEFAULT, LocalizationService.Message.MAXIMUM_PROMPT),
+        ATTEMPT(MAXIMUM, LocalizationService.Message.ATTEMPT_PROMPT),
+        CORRECT(ATTEMPT, LocalizationService.Message.CORRECT_PROMPT),
+        TIMEOUT(CORRECT, LocalizationService.Message.TIMEOUT_PROMPT),
         MESSAGE(TIMEOUT, LocalizationService.Message.MESSAGE_PROMPT),
         KEYWORD(MESSAGE, LocalizationService.Message.KEYWORD_PROMPT),
         FORWARD(KEYWORD, LocalizationService.Message.FORWARD_PROMPT);
@@ -35,9 +38,13 @@ public class Session {
 
     public enum Protocol {
         FULL("Full"),
+        BRIEF("Brief"),
         KEYWORD("Keyword"),
         MESSAGE("Message"),
         TIMEOUT("Timeout"),
+        CORRECT("Correct"),
+        ATTEMPT("Attempt"),
+        MAXIMUM("Maximum"),
         SHOW("Show");
 
         @Getter
@@ -55,6 +62,9 @@ public class Session {
     private String keyword;
     private String message;
     private int timeout;
+    private int correct;
+    private int attempt;
+    private int maximum;
     private State state;
     private Protocol protocol;
 

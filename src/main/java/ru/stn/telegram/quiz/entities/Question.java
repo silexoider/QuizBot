@@ -21,12 +21,18 @@ public class Question implements Serializable {
     private String keyword;
     private String message;
     private int timeout;
+    private int correct;
+    private int attempt;
+    private int maximum;
 
-    public Question(long chatId, int postId, String keyword, String message, int timeout) {
+    public Question(long chatId, int postId, String keyword, String message, int timeout, int correct, int attempt, int maximum) {
         this.chatId = chatId;
         this.postId = postId;
         this.keyword = keyword;
         this.message = message;
         this.timeout = timeout;
+        this.correct = correct;
+        this.attempt = attempt;
+        this.maximum = maximum;
     }
 }

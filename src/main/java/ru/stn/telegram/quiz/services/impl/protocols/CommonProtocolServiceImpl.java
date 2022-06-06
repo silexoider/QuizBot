@@ -4,7 +4,9 @@ import lombok.Getter;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.stn.telegram.quiz.entities.Session;
-import ru.stn.telegram.quiz.exceptions.InvalidFormatException;
+import ru.stn.telegram.quiz.exceptions.BotException;
+import ru.stn.telegram.quiz.exceptions.InsufficientPrivilegeException;
+import ru.stn.telegram.quiz.exceptions.InvalidInputException;
 import ru.stn.telegram.quiz.exceptions.OperationCancelledException;
 import ru.stn.telegram.quiz.services.ActionService;
 import ru.stn.telegram.quiz.services.LocalizationService;
@@ -30,7 +32,10 @@ public abstract class CommonProtocolServiceImpl implements ProtocolService {
         put(Session.State.FORWARD, Session.State.KEYWORD);
         put(Session.State.KEYWORD, Session.State.MESSAGE);
         put(Session.State.MESSAGE, Session.State.TIMEOUT);
-        put(Session.State.TIMEOUT, Session.State.DEFAULT);
+        put(Session.State.TIMEOUT, Session.State.CORRECT);
+        put(Session.State.CORRECT, Session.State.ATTEMPT);
+        put(Session.State.ATTEMPT, Session.State.MAXIMUM);
+        put(Session.State.MAXIMUM, Session.State.DEFAULT);
     }};
 
     public CommonProtocolServiceImpl(Session.State initialState, Config config, ActionService actionService, SessionService sessionService, LocalizationService localizationService) {
@@ -52,13 +57,17 @@ public abstract class CommonProtocolServiceImpl implements ProtocolService {
     }
     private BotApiMethod<?> commonStateHandler(Supplier<Session.State> action, Session session, Message message, ResourceBundle resourceBundle) {
         try {
-            Session.State next = null;
             if (checkCancelled(message)) {
                 throw new OperationCancelledException();
             }
+            Session.State next = null;
             try { next = action.get(); }
-            catch (RuntimeException e) {
-                throw new InvalidFormatException();
+            catch (InsufficientPrivilegeException e) {
+                throw e;
+            } catch (BotException e) {
+                throw e;
+            } catch (RuntimeException e) {
+                throw new InvalidInputException();
             }
             sessionService.setState(session, next);
             if (next == Session.State.DEFAULT) {
@@ -66,12 +75,9 @@ public abstract class CommonProtocolServiceImpl implements ProtocolService {
             } else {
                 return actionService.sendPrivateMessage(message.getFrom().getId(), localizationService.getMessage(next.getPrompt(), resourceBundle));
             }
-        } catch (OperationCancelledException e) {
+        } catch (BotException e) {
             sessionService.toDefault(session);
-            return actionService.sendPrivateMessage(message.getFrom().getId(), localizationService.getCancelled(resourceBundle));
-        } catch (InvalidFormatException e) {
-            sessionService.toDefault(session);
-            return actionService.sendPrivateMessage(message.getFrom().getId(), localizationService.getInvalidInput(resourceBundle));
+            return actionService.sendPrivateMessage(message.getFrom().getId(), localizationService.getMessage(e.getLocalizationMessage(), resourceBundle));
         }
     }
 
@@ -95,11 +101,34 @@ public abstract class CommonProtocolServiceImpl implements ProtocolService {
         return commonStateHandler(() -> processTimeoutInternal(session, message, resourceBundle), session, message, resourceBundle);
     }
 
-    protected Session.State processForwardInternal(Session session, Message message, ResourceBundle resourceBundle) {
+    @Override
+    public BotApiMethod<?> processCorrect(Session session, Message message, ResourceBundle resourceBundle) {
+        return commonStateHandler(() -> processCorrectInternal(session, message, resourceBundle), session, message, resourceBundle);
+    }
+
+    @Override
+    public BotApiMethod<?> processAttempt(Session session, Message message, ResourceBundle resourceBundle) {
+        return commonStateHandler(() -> processAttemptInternal(session, message, resourceBundle), session, message, resourceBundle);
+    }
+
+    @Override
+    public BotApiMethod<?> processMaximum(Session session, Message message, ResourceBundle resourceBundle) {
+        return commonStateHandler(() -> processMaximumInternal(session, message, resourceBundle), session, message, resourceBundle);
+    }
+
+    protected ActionService.Post checkForward(Session session, Message message, ResourceBundle resourceBundle) {
         ActionService.Post post = actionService.getPrivatePost(message);
         if (post == null) {
-            throw new InvalidFormatException();
+            throw new InvalidInputException();
         }
+        if (!actionService.isSuperUser(post.getChatId(), message.getFrom().getId())) {
+            throw new InsufficientPrivilegeException();
+        }
+        return post;
+    }
+
+    protected Session.State processForwardInternal(Session session, Message message, ResourceBundle resourceBundle) {
+        ActionService.Post post = checkForward(session, message, resourceBundle);
         sessionService.setForward(session, post.getChatId(), post.getPostId());
         return transitions.get(Session.State.FORWARD);
     }
@@ -118,6 +147,24 @@ public abstract class CommonProtocolServiceImpl implements ProtocolService {
         int timeout = Integer.parseInt(message.getText()) * 60 * 60;
         sessionService.setTimeout(session, timeout);
         return transitions.get(Session.State.TIMEOUT);
+    }
+
+    protected Session.State processCorrectInternal(Session session, Message message, ResourceBundle resourceBundle) {
+        int timeout = Integer.parseInt(message.getText());
+        sessionService.setCorrect(session, timeout);
+        return transitions.get(Session.State.CORRECT);
+    }
+
+    protected Session.State processAttemptInternal(Session session, Message message, ResourceBundle resourceBundle) {
+        int timeout = Integer.parseInt(message.getText());
+        sessionService.setAttempt(session, timeout);
+        return transitions.get(Session.State.ATTEMPT);
+    }
+
+    protected Session.State processMaximumInternal(Session session, Message message, ResourceBundle resourceBundle) {
+        int timeout = Integer.parseInt(message.getText());
+        sessionService.setMaximum(session, timeout);
+        return transitions.get(Session.State.MAXIMUM);
     }
 
     protected abstract BotApiMethod<?> commit(Session session, ResourceBundle resourceBundle);

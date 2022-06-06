@@ -13,6 +13,10 @@ public class LocalizationServiceImpl implements LocalizationService {
     }
 
     @Override
+    public String getForwardPrompt(ResourceBundle resourceBundle) {
+        return getMessage(Message.FORWARD_PROMPT, resourceBundle);
+    }
+    @Override
     public String getKeywordPrompt(ResourceBundle resourceBundle) {
         return getMessage(Message.KEYWORD_PROMPT, resourceBundle);
     }
@@ -25,8 +29,16 @@ public class LocalizationServiceImpl implements LocalizationService {
         return getMessage(Message.TIMEOUT_PROMPT, resourceBundle);
     }
     @Override
-    public String getForwardPrompt(ResourceBundle resourceBundle) {
-        return getMessage(Message.FORWARD_PROMPT, resourceBundle);
+    public String getCorrectPrompt(ResourceBundle resourceBundle) {
+        return getMessage(Message.CORRECT_PROMPT, resourceBundle);
+    }
+    @Override
+    public String getAttemptPrompt(ResourceBundle resourceBundle) {
+        return getMessage(Message.ATTEMPT_PROMPT, resourceBundle);
+    }
+    @Override
+    public String getMaximumPrompt(ResourceBundle resourceBundle) {
+        return getMessage(Message.MAXIMUM_PROMPT, resourceBundle);
     }
     @Override
     public String getInvalidInput(ResourceBundle resourceBundle) {

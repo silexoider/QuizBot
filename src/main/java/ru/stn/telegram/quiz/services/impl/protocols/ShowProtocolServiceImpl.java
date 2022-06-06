@@ -37,7 +37,10 @@ public class ShowProtocolServiceImpl extends CommonProtocolServiceImpl {
                             localizationService.getQuestionFormat(resourceBundle),
                             question.getKeyword(),
                             question.getMessage(),
-                            question.getTimeout() / 60 / 60
+                            question.getTimeout() / 60 / 60,
+                            question.getCorrect(),
+                            question.getAttempt(),
+                            question.getMaximum()
                     )
             );
         }
