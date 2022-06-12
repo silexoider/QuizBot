@@ -5,18 +5,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.MessageEntity;
+import ru.stn.telegram.tests.states.entities.sessions.Session;
 import ru.stn.telegram.tests.states.telegram.Config;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class BotCommandProcessor<R> extends CommandProcessor<BotCommandProcessor.Args, R> {
-    @Getter
-    @RequiredArgsConstructor
-    public static class Args {
-        private final Message message;
-        private final ResourceBundle resourceBundle;
+public class BotCommandProcessor<T extends BotCommandProcessor.Args, R> extends CommandProcessor<T, R> {
+    public interface Args {
+        Message getMessage();
     }
 
     private final String BOT_COMMAND_TYPE_VALUE = "bot_command";
@@ -37,7 +35,7 @@ public class BotCommandProcessor<R> extends CommandProcessor<BotCommandProcessor
     }
 
     @Override
-    protected String getCommandText(Args args) {
+    protected String getCommandText(T args) {
         if (args.getMessage().getEntities() == null) {
             return null;
         }

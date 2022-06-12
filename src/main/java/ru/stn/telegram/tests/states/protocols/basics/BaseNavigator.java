@@ -24,9 +24,10 @@ public class BaseNavigator<S, C extends S> implements Navigator<S, C> {
     public Transition<S, C> navigate(Session session, C context, Message message, ResourceBundle resourceBundle) {
         Entry feedbackEntry = null;
         String feedbackMessage = null;
+        boolean result = true;
         Transition<S, C> transition;
         try {
-            state.handle(session, context, message, resourceBundle);
+            result = state.handle(session, context, message, resourceBundle);
             transition = Transition.next();
         } catch (CancelledException e) {
             feedbackEntry = Entry.CANCELLED;
@@ -52,7 +53,11 @@ public class BaseNavigator<S, C extends S> implements Navigator<S, C> {
             }
         }
         if (feedbackMessage == null) {
-            transition = check(transition, session, context, message, resourceBundle);
+            if (result) {
+                transition = check(transition, session, context, message, resourceBundle);
+            } else {
+                transition = Transition.self();
+            }
         } else {
             botService.sendMessage(message.getFrom().getId(), feedbackMessage);
         }

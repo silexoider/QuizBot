@@ -1,23 +1,42 @@
 package ru.stn.telegram.tests.states.processors;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.stn.telegram.tests.states.entities.sessions.Session;
+import ru.stn.telegram.tests.states.localization.Entry;
+import ru.stn.telegram.tests.states.localization.Localizer;
 import ru.stn.telegram.tests.states.protocols.Protocols;
+import ru.stn.telegram.tests.states.services.BotService;
 import ru.stn.telegram.tests.states.services.ProtocolService;
 import ru.stn.telegram.tests.states.services.SessionService;
 
 import javax.annotation.PostConstruct;
+import java.util.ResourceBundle;
 import java.util.function.BiFunction;
 
 @Component
-public class DefaultCommandProcessor extends BotCommandProcessor<Void> {
-    private final SessionService sessionService;
-    private final ProtocolService protocolService;
+public class DefaultCommandProcessor extends BotCommandProcessor<DefaultCommandProcessor.Args, Void> {
+    @Getter
+    @RequiredArgsConstructor
+    public static class Args implements BotCommandProcessor.Args {
+        private final Message message;
+        private final ResourceBundle resourceBundle;
+    }
 
-    public DefaultCommandProcessor(SessionService sessionService, ProtocolService protocolService) {
+    @Autowired
+    private SessionService sessionService;
+    @Autowired
+    private ProtocolService protocolService;
+    @Autowired
+    private BotService botService;
+    @Autowired
+    private Localizer localizer;
+
+    public DefaultCommandProcessor() {
         super(null);
-        this.sessionService = sessionService;
-        this.protocolService = protocolService;
     }
 
     @PostConstruct
@@ -35,6 +54,8 @@ public class DefaultCommandProcessor extends BotCommandProcessor<Void> {
         addHandler("currency", this::currency);
 
         addHandler("payment", this::payment);
+
+        addHandler("help", this::help);
     }
 
     private <S extends Session> Void common(Args args, Protocols protocol, BiFunction<SessionService, Long, S> getter) {
@@ -81,5 +102,10 @@ public class DefaultCommandProcessor extends BotCommandProcessor<Void> {
 
     private Void payment(Args args) {
         return common(args, Protocols.PAYMENT, SessionService::toPaymentSession);
+    }
+
+    private Void help(Args args) {
+        botService.sendMessage(args.getMessage().getFrom().getId(), localizer.localize(Entry.HELP_FORMAT, args.getResourceBundle()));
+        return null;
     }
 }

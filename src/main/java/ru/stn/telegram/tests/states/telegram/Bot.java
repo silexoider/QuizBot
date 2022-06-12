@@ -2,6 +2,7 @@ package ru.stn.telegram.tests.states.telegram;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -17,8 +18,10 @@ import java.util.ResourceBundle;
 @Component
 @RequiredArgsConstructor
 public class Bot extends TelegramLongPollingBot {
-    private final Config config;
-    private final MessageProcessor messageProcessor;
+    @Autowired
+    private Config config;
+    @Autowired
+    private MessageProcessor messageProcessor;
 
     private ResourceBundle getResourceBundle(Message message) {
         String languageCode = message.getFrom().getLanguageCode();

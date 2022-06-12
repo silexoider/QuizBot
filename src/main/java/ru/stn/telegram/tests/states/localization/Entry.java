@@ -24,7 +24,9 @@ public enum Entry {
     CURRENCY_FORMAT("currency_format"),
     UNEXPECTED_ERROR_FORMAT("unexpected_error_format"),
     INSUFFICIENT_PRIVILEGES("insufficient_privileges"),
-    CORRECT_ANSWER_FORMAT("correct_answer_format");
+    CORRECT_ANSWER_FORMAT("correct_answer_format"),
+    HELP_FORMAT("help_format"),
+    WHEREAMI_FORMAT("whereami_format");
 
     @Getter
     private final String name;

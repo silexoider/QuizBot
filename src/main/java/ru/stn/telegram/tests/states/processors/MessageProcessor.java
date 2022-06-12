@@ -54,7 +54,7 @@ public class MessageProcessor {
     private void processPrivate(Message message, ResourceBundle resourceBundle) {
         Session session = sessionService.find(message.getFrom().getId());
         if (session == null || session.getState() == -1) {
-            defaultCommandProcessor.process(new BotCommandProcessor.Args(message, resourceBundle));
+            defaultCommandProcessor.process(new DefaultCommandProcessor.Args(message, resourceBundle));
         } else {
             session.getProtocol().getConsumer().accept(protocolService, session, message, resourceBundle);
         }

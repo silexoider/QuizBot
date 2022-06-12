@@ -1,6 +1,8 @@
 package ru.stn.telegram.tests.states.services.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.groupadministration.GetChatMember;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -12,7 +14,8 @@ import ru.stn.telegram.tests.states.telegram.Bot;
 @Service
 @RequiredArgsConstructor
 public class BotServiceImpl implements BotService {
-    private final Bot bot;
+    @Autowired
+    private Bot bot;
 
     @Override
     public void sendMessage(long chatId, String text) {

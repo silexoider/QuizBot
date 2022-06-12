@@ -6,6 +6,7 @@ import ru.stn.telegram.tests.states.entities.sessions.Session;
 import java.util.ResourceBundle;
 
 public interface State<C> {
+    String getDescription(ResourceBundle resourceBundle);
     void prompt(Session session, C context, ResourceBundle resourceBundle);
-    void handle(Session session, C context, Message message, ResourceBundle resourceBundle);
+    boolean handle(Session session, C context, Message message, ResourceBundle resourceBundle);
 }

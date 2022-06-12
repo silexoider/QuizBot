@@ -38,10 +38,6 @@ public class ProtocolServiceImpl implements ProtocolService {
     private final SessionService sessionService;
     private final BeanFactory beanFactory;
 
-    private <C> Protocol<C> getProtocol(String name) {
-        return (Protocol<C>) beanFactory.getBean(name, Protocol.class);
-    }
-
     private <C> Map<Transition.Kind, Handler<C>> getHandlers() {
         return new HashMap<>() {{
             put(Transition.Kind.NEXT, (s, c, n, t, p, ns, rb) -> next(s, c, n, t, p, ns, rb));
@@ -120,6 +116,11 @@ public class ProtocolServiceImpl implements ProtocolService {
         int index = navigators.indexOf(transition.getNavigator());
         sessionService.setState(session, index);
         return transition.getNavigator();
+    }
+
+    @Override
+    public <C> Protocol<C> getProtocol(String name) {
+        return (Protocol<C>) beanFactory.getBean(name, Protocol.class);
     }
 
     @Override
