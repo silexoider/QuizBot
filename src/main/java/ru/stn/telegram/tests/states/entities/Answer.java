@@ -3,13 +3,11 @@ package ru.stn.telegram.tests.states.entities;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
+@Table(indexes = @Index(name = "XChatPostUser", columnList = "chatId, postId, userId"))
 @NoArgsConstructor
 public class Answer {
     @Id
