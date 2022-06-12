@@ -5,22 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="18eb446f-4433-4f22-88f2-474eb9d742ea" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/localization/Entry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/localization/Entry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/processors/BotCommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/processors/BotCommandProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/processors/CancelCommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/processors/StateCommandProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/processors/DefaultCommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/processors/DefaultCommandProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/processors/MessageProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/processors/MessageProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/Protocols.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/Protocols.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/basics/BaseNavigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/basics/BaseNavigator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/basics/BaseState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/basics/BaseState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/basics/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/basics/State.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/services/ProtocolService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/services/ProtocolService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/services/impl/BotServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/services/impl/BotServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/services/impl/ProtocolServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/services/impl/ProtocolServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/telegram/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/telegram/Bot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
