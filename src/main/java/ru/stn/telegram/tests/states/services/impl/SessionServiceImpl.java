@@ -42,7 +42,9 @@ public class SessionServiceImpl implements SessionService {
     }
     private <S extends Session> S toSpecificSession(long userId, Function<Long, S> instantiator) {
         Session oldSession = findCommon(userId);
-        sessionRepository.delete(oldSession);
+        if (oldSession != null) {
+            sessionRepository.delete(oldSession);
+        }
         return getSpecificSession(userId, instantiator);
     }
 
