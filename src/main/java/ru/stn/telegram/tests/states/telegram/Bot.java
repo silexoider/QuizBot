@@ -26,7 +26,7 @@ public class Bot extends TelegramLongPollingBot {
     private ResourceBundle getResourceBundle(Message message) {
         String languageCode = message.getFrom().getLanguageCode();
         Locale locale = languageCode == null ? null : Locale.forLanguageTag(languageCode);
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("messages", locale);
+        ResourceBundle resourceBundle = locale == null ? ResourceBundle.getBundle("messages") : ResourceBundle.getBundle("messages", locale);
         return resourceBundle;
     }
 
