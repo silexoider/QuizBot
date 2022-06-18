@@ -5,6 +5,7 @@ import ru.stn.telegram.tests.states.entities.Question;
 import ru.stn.telegram.tests.states.localization.Localizer;
 import ru.stn.telegram.tests.states.protocols.states.attempt.AttemptState;
 import ru.stn.telegram.tests.states.protocols.states.forward.ForwardState;
+import ru.stn.telegram.tests.states.protocols.states.forward.PrivateForwardState;
 import ru.stn.telegram.tests.states.services.BotService;
 import ru.stn.telegram.tests.states.services.QuestionService;
 import ru.stn.telegram.tests.states.services.SessionService;
@@ -12,7 +13,7 @@ import ru.stn.telegram.tests.states.services.SessionService;
 @Component("AttemptQuestionProtocol")
 public class AttemptQuestionProtocol extends SingleValueQuestionProtocol {
     public AttemptQuestionProtocol(
-            ForwardState forwardState,
+            PrivateForwardState forwardState,
             AttemptState attemptState,
             QuestionService questionService,
             BotService botService,

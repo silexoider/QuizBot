@@ -28,7 +28,7 @@ public class CommentState extends BaseState<CommentContext> {
         if (message.getForwardFrom() == null) {
             throw new InvalidInputException();
         }
-        context.setUserId(message.getForwardFrom().getId());
+        context.setOtherUserId(message.getForwardFrom().getId());
         sessionService.save(session);
     }
 }

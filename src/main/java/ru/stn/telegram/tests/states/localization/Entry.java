@@ -26,7 +26,12 @@ public enum Entry {
     INSUFFICIENT_PRIVILEGES("insufficient_privileges"),
     CORRECT_ANSWER_FORMAT("correct_answer_format"),
     HELP_FORMAT("help_format"),
-    WHEREAMI_FORMAT("whereami_format");
+    WHEREAMI_FORMAT("whereami_format"),
+    WRONG_ANSWER_FORMAT("wrong_answer_format"),
+    TIMEOUT_EXPIRED("timeout_expired"),
+    ALREADY_CORRECT("already_correct"),
+    OWN_BALANCE_FORMAT("own_balance_format"),
+    USER_BALANCE_FORMAT("user_balance_format");
 
     @Getter
     private final String name;

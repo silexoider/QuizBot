@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.stn.telegram.tests.states.entities.Question;
 import ru.stn.telegram.tests.states.localization.Localizer;
 import ru.stn.telegram.tests.states.protocols.states.forward.ForwardState;
+import ru.stn.telegram.tests.states.protocols.states.forward.PrivateForwardState;
 import ru.stn.telegram.tests.states.protocols.states.message.MessageState;
 import ru.stn.telegram.tests.states.services.BotService;
 import ru.stn.telegram.tests.states.services.QuestionService;
@@ -13,7 +14,7 @@ import ru.stn.telegram.tests.states.services.SessionService;
 @Component("MessageQuestionProtocol")
 public class MessageQuestionProtocol extends SingleValueQuestionProtocol {
     public MessageQuestionProtocol(
-            ForwardState forwardState,
+            PrivateForwardState forwardState,
             MessageState messageState,
             QuestionService questionService,
             BotService botService,

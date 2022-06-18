@@ -20,8 +20,12 @@ public class BotServiceImpl implements BotService {
     @Override
     public void sendMessage(long chatId, String text) {
         SendMessage method = new SendMessage(Long.valueOf(chatId).toString(), text);
-        try { bot.execute(method); }
-        catch (TelegramApiException e) { }
+        try {
+            bot.execute(method);
+        }
+        catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -29,6 +33,7 @@ public class BotServiceImpl implements BotService {
         try {
             return bot.execute(new GetChatMember(Long.valueOf(chatId).toString(), userId));
         } catch (TelegramApiException e) {
+            e.printStackTrace();
             return null;
         }
     }

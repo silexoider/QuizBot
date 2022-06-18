@@ -13,6 +13,7 @@ import ru.stn.telegram.tests.states.protocols.basics.BaseProtocol;
 import ru.stn.telegram.tests.states.protocols.protocols.question.QuestionContext;
 import ru.stn.telegram.tests.states.protocols.states.dual.DualState;
 import ru.stn.telegram.tests.states.protocols.states.forward.ForwardState;
+import ru.stn.telegram.tests.states.protocols.states.forward.PrivateForwardState;
 import ru.stn.telegram.tests.states.protocols.states.plural.PluralState;
 import ru.stn.telegram.tests.states.protocols.states.singular.SingularState;
 import ru.stn.telegram.tests.states.services.BotService;
@@ -28,7 +29,7 @@ public class CurrencyProtocol extends BaseProtocol<CurrencyContext> {
     private ChannelService channelService;
 
     public CurrencyProtocol(
-            ForwardState forwardState,
+            PrivateForwardState forwardState,
             SingularState singularState,
             DualState dualState,
             PluralState pluralState,

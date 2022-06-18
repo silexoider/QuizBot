@@ -11,6 +11,7 @@ import ru.stn.telegram.tests.states.protocols.basics.State;
 import ru.stn.telegram.tests.states.protocols.basics.Transition;
 import ru.stn.telegram.tests.states.protocols.states.forward.ForwardContext;
 import ru.stn.telegram.tests.states.protocols.states.forward.ForwardState;
+import ru.stn.telegram.tests.states.protocols.states.forward.PrivateForwardState;
 import ru.stn.telegram.tests.states.services.BotService;
 import ru.stn.telegram.tests.states.services.QuestionService;
 import ru.stn.telegram.tests.states.services.SessionService;
@@ -19,7 +20,7 @@ import java.util.ResourceBundle;
 
 public abstract class SingleValueQuestionProtocol extends BaseQuestionProtocol {
     public SingleValueQuestionProtocol(
-            ForwardState forwardState,
+            PrivateForwardState forwardState,
             State<? super QuestionContext> state,
             QuestionService questionService,
             BotService botService,

@@ -35,6 +35,7 @@ public class Bot extends TelegramLongPollingBot {
         if (!update.hasMessage()) {
             return;
         }
+        System.out.println("Msg received");
         Message message = update.getMessage();
         ResourceBundle resourceBundle = getResourceBundle(message);
         messageProcessor.process(message, resourceBundle);

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import ru.stn.telegram.tests.states.entities.Question;
 import ru.stn.telegram.tests.states.localization.Localizer;
 import ru.stn.telegram.tests.states.protocols.states.forward.ForwardState;
+import ru.stn.telegram.tests.states.protocols.states.forward.PrivateForwardState;
 import ru.stn.telegram.tests.states.protocols.states.maximum.MaximumState;
 import ru.stn.telegram.tests.states.services.BotService;
 import ru.stn.telegram.tests.states.services.QuestionService;
@@ -12,7 +13,7 @@ import ru.stn.telegram.tests.states.services.SessionService;
 @Component("MaximumQuestionProtocol")
 public class MaximumQuestionProtocol extends SingleValueQuestionProtocol {
     public MaximumQuestionProtocol(
-            ForwardState forwardState,
+            PrivateForwardState forwardState,
             MaximumState maximumState,
             QuestionService questionService,
             BotService botService,

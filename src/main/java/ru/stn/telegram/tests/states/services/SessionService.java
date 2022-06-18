@@ -1,9 +1,6 @@
 package ru.stn.telegram.tests.states.services;
 
-import ru.stn.telegram.tests.states.entities.sessions.CurrencySession;
-import ru.stn.telegram.tests.states.entities.sessions.PaymentSession;
-import ru.stn.telegram.tests.states.entities.sessions.QuestionSession;
-import ru.stn.telegram.tests.states.entities.sessions.Session;
+import ru.stn.telegram.tests.states.entities.sessions.*;
 import ru.stn.telegram.tests.states.protocols.Protocols;
 
 public interface SessionService {
@@ -19,4 +16,5 @@ public interface SessionService {
     QuestionSession toQuestionSession(long userId);
     CurrencySession toCurrencySession(long userId);
     PaymentSession toPaymentSession(long userId);
+    BalanceSession toBalanceSession(long userId);
 }

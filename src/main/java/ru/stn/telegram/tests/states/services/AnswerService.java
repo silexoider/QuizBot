@@ -10,4 +10,5 @@ public interface AnswerService {
     boolean processAttempt(Answer answer, Question question);
     void pay(Answer answer, int amount);
     int getChatBalance(Answer answer);
+    int getChatBalance(long chatId, long userId);
 }

@@ -3,8 +3,8 @@ package ru.stn.telegram.tests.states.entities.sessions;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import ru.stn.telegram.tests.states.entities.sessions.ForwardSession;
-import ru.stn.telegram.tests.states.protocols.protocols.payment.PaymentContext;
+import ru.stn.telegram.tests.states.protocols.protocols.payment.OwnBalanceContext;
+import ru.stn.telegram.tests.states.protocols.protocols.payment.UserBalanceContext;
 
 import javax.persistence.Entity;
 
@@ -12,11 +12,10 @@ import javax.persistence.Entity;
 @Entity
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class PaymentSession extends ForwardSession implements PaymentContext {
+public class BalanceSession extends ForwardSession implements OwnBalanceContext, UserBalanceContext {
     private Long otherUserId;
-    private int payAmount;
 
-    public PaymentSession(long userId) {
+    public BalanceSession(long userId) {
         super(userId);
     }
 }

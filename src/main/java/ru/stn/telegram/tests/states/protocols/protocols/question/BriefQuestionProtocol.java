@@ -8,6 +8,7 @@ import ru.stn.telegram.tests.states.localization.Localizer;
 import ru.stn.telegram.tests.states.protocols.basics.BaseNavigator;
 import ru.stn.telegram.tests.states.protocols.basics.BaseProtocol;
 import ru.stn.telegram.tests.states.protocols.states.forward.ForwardState;
+import ru.stn.telegram.tests.states.protocols.states.forward.PrivateForwardState;
 import ru.stn.telegram.tests.states.protocols.states.keyword.KeywordState;
 import ru.stn.telegram.tests.states.protocols.states.message.MessageState;
 import ru.stn.telegram.tests.states.protocols.states.timeout.TimeoutState;
@@ -19,7 +20,7 @@ import java.util.ResourceBundle;
 @Component("BriefQuestionProtocol")
 public class BriefQuestionProtocol extends BaseQuestionProtocol {
     public BriefQuestionProtocol(
-            ForwardState forwardState,
+            PrivateForwardState forwardState,
             KeywordState keywordState,
             MessageState messageState,
             TimeoutState timeoutState,

@@ -61,6 +61,16 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     public int getChatBalance(Answer answer) {
-        return repository.getChatBalance(answer.getChatId(), answer.getUserId());
+        return getChatBalance(answer.getChatId(), answer.getUserId());
+    }
+
+    @Override
+    public int getChatBalance(long chatId, long userId) {
+        Integer value = repository.getChatBalance(chatId, userId);
+        if (value == null) {
+            return 0;
+        } else {
+            return value;
+        }
     }
 }

@@ -52,6 +52,7 @@ public class MessageProcessor {
     }
 
     private void processPrivate(Message message, ResourceBundle resourceBundle) {
+        System.out.println("processPrivate");
         Session session = sessionService.find(message.getFrom().getId());
         if (session == null || session.getState() == -1) {
             defaultCommandProcessor.process(new DefaultCommandProcessor.Args(message, resourceBundle));
@@ -60,33 +61,51 @@ public class MessageProcessor {
         }
     }
     private void processPublic(Message message, ResourceBundle resourceBundle) {
+        System.out.println("processPublic");
         if (message.getText() == null || message.getReplyToMessage() == null) {
+            System.out.println("processPublic: label01");
             return;
         }
         MessageService.Post post = messageService.getForwardedChannelPost(message.getReplyToMessage());
         if (post == null) {
+            System.out.println("processPublic: label02");
             return;
         }
         Question question = questionService.find(post.getChatId(), post.getPostId());
         if (question == null) {
+            System.out.println("processPublic: label03");
             return;
         }
         if (!questionService.checkTimeout(question, message)) {
+            System.out.println("processPublic: label04");
             return;
         }
         Answer answer = answerService.get(post.getChatId(), post.getPostId(), message.getFrom().getId());
-        if (questionService.checkKeyword(question, message) && answerService.processCorrect(answer, question)) {
-            Channel channel = channelService.get(post.getChatId());
+        Channel channel = channelService.get(post.getChatId());
+        if (questionService.checkKeyword(question, message)) {
+            if (answerService.processCorrect(answer, question)) {
+                System.out.println(String.format("processPublic: label05; message.getFrom().getId() = %d; message.getFrom().getUserName() = %s", message.getFrom().getId(), message.getFrom().getUserName()));
+                botService.sendMessage(
+                        message.getFrom().getId(),
+                        String.format(
+                                localizer.localize(Entry.CORRECT_ANSWER_FORMAT, resourceBundle),
+                                channelService.getValueInCurrency(channel, question.getCorrect()),
+                                channelService.getValueInCurrency(channel, answerService.getChatBalance(answer)),
+                                question.getMessage()
+                        )
+                );
+            } else {
+                System.out.println("processPublic: label06");
+                botService.sendMessage(message.getFrom().getId(), localizer.localize(Entry.ALREADY_CORRECT, resourceBundle));
+            }
+        } else {
             botService.sendMessage(
                     message.getFrom().getId(),
                     String.format(
-                            localizer.localize(Entry.CORRECT_ANSWER_FORMAT, resourceBundle),
-                            channelService.getValueInCurrency(channel, question.getCorrect()),
-                            channelService.getValueInCurrency(channel, answerService.getChatBalance(answer)),
-                            question.getMessage()
+                            localizer.localize(Entry.WRONG_ANSWER_FORMAT, resourceBundle),
+                            channelService.getValueInCurrency(channel, answerService.getChatBalance(answer))
                     )
             );
-        } else {
             answerService.processAttempt(answer, question);
         }
     }

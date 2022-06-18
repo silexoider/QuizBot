@@ -9,6 +9,7 @@ import ru.stn.telegram.tests.states.localization.Localizer;
 import ru.stn.telegram.tests.states.protocols.basics.BaseNavigator;
 import ru.stn.telegram.tests.states.protocols.basics.BaseProtocol;
 import ru.stn.telegram.tests.states.protocols.states.forward.ForwardState;
+import ru.stn.telegram.tests.states.protocols.states.forward.PrivateForwardState;
 import ru.stn.telegram.tests.states.services.BotService;
 import ru.stn.telegram.tests.states.services.QuestionService;
 
@@ -20,7 +21,7 @@ public class ShowQuestionProtocol extends BaseProtocol<QuestionContext> {
     private QuestionService questionService;
 
     public ShowQuestionProtocol(
-            ForwardState forwardState,
+            PrivateForwardState forwardState,
             BotService botService,
             Localizer localizer
     ) {

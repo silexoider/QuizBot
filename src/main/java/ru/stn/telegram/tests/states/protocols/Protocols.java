@@ -2,7 +2,9 @@ package ru.stn.telegram.tests.states.protocols;
 
 import lombok.Getter;
 import ru.stn.telegram.tests.states.protocols.protocols.currency.CurrencyContext;
+import ru.stn.telegram.tests.states.protocols.protocols.payment.OwnBalanceContext;
 import ru.stn.telegram.tests.states.protocols.protocols.payment.PaymentContext;
+import ru.stn.telegram.tests.states.protocols.protocols.payment.UserBalanceContext;
 import ru.stn.telegram.tests.states.protocols.protocols.question.QuestionContext;
 
 public enum Protocols {
@@ -18,7 +20,9 @@ public enum Protocols {
 
     CURRENCY("CurrencyProtocol", "/currency", (ps, s, m, rb) -> ps.process(s, (CurrencyContext) s, m, rb)),
 
-    PAYMENT("PaymentProtocol", "/payment", (ps, s, m, rb) -> ps.process(s, (PaymentContext) s, m, rb));
+    PAYMENT("PaymentProtocol", "/payment", (ps, s, m, rb) -> ps.process(s, (PaymentContext) s, m, rb)),
+    OWN_BALANCE("OwnBalanceProtocol", "/own_balance", (ps, s, m, rb) -> ps.process(s, (OwnBalanceContext) s, m, rb)),
+    USER_BALANCE("UserBalanceProtocol", "/user_balance", (ps, s, m, rb) -> ps.process(s, (UserBalanceContext) s, m, rb));
 
     @Getter
     private final String name;

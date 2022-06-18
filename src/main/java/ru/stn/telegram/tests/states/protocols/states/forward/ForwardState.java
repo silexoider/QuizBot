@@ -16,10 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-@Component
-public class ForwardState extends BaseState<ForwardContext> {
-    private static final List<String> SUPER_USER_ROLE_NAMES = Arrays.asList("creator", "administrator");
-
+public abstract class ForwardState extends BaseState<ForwardContext> {
     @Autowired
     private SessionService sessionService;
     @Autowired
@@ -29,9 +26,7 @@ public class ForwardState extends BaseState<ForwardContext> {
         super(Entry.FORWARD_PROMPT);
     }
 
-    private boolean isSuperUser(ChatMember chatMember) {
-        return SUPER_USER_ROLE_NAMES.contains(chatMember.getStatus());
-    }
+    protected abstract boolean checkChatMember(ChatMember chatMember);
 
     @Override
     public void process(Session session, ForwardContext context, Message message, ResourceBundle resourceBundle) {
@@ -40,7 +35,7 @@ public class ForwardState extends BaseState<ForwardContext> {
             throw new InvalidInputException();
         }
         ChatMember chatMember = botService.getChatMember(message.getForwardFromChat().getId(), session.getUserId());
-        if (chatMember == null || !isSuperUser(chatMember)) {
+        if (chatMember == null || !checkChatMember(chatMember)) {
             throw new InsufficientPrivilegesException();
         }
         context.setChatId(message.getForwardFromChat().getId());

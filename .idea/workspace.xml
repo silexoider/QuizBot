@@ -5,15 +5,65 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="18eb446f-4433-4f22-88f2-474eb9d742ea" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/entities/sessions/BalanceSession.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/payment/OwnBalanceContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/payment/OwnBalanceProtocol.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/payment/UserBalanceContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/payment/UserBalanceProtocol.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/states/forward/PrivateForwardState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/states/forward/PublicForwardState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/entities/sessions/PaymentSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/entities/sessions/PaymentSession.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/localization/Entry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/localization/Entry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/processors/DefaultCommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/processors/DefaultCommandProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/processors/MessageProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/processors/MessageProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/Protocols.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/Protocols.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/currency/CurrencyProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/currency/CurrencyProtocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/payment/PaymentProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/payment/PaymentProtocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/AttemptQuestionProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/AttemptQuestionProtocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/BriefQuestionProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/BriefQuestionProtocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/CorrectQuestionProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/CorrectQuestionProtocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/FullQuestionProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/FullQuestionProtocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/KeywordQuestionProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/KeywordQuestionProtocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/MaximumQuestionProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/MaximumQuestionProtocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/MessageQuestionProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/MessageQuestionProtocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/ShowQuestionProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/ShowQuestionProtocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/SingleValueQuestionProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/SingleValueQuestionProtocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/TimeoutQuestionProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/protocols/question/TimeoutQuestionProtocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/states/comment/CommentContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/states/comment/CommentContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/states/comment/CommentState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/states/comment/CommentState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/states/forward/ForwardState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/protocols/states/forward/ForwardState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/services/AnswerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/services/AnswerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/services/SessionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/services/SessionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/services/impl/AnswerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/services/impl/AnswerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/services/impl/BotServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/services/impl/BotServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/services/impl/SessionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/services/impl/SessionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/telegram/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/stn/telegram/tests/states/telegram/Bot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="2AOOSzogRpVauqUGuTFEgdvIEQP" />
   <component name="ProjectViewState">
@@ -26,8 +76,16 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Maven.mvn">
-    <configuration name="app" type="Application" factoryName="Application">
+  <component name="RunManager" selected="Application.app.local">
+    <configuration name="app.local" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="ru.stn.telegram.tests.states.Application" />
+      <module name="quiz" />
+      <option name="PROGRAM_PARAMETERS" value="--spring.profiles.active=local" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app.test" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="ru.stn.telegram.tests.states.Application" />
       <module name="quiz" />
       <option name="PROGRAM_PARAMETERS" value="--spring.profiles.active=test" />
@@ -62,7 +120,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.app" />
+      <item itemvalue="Application.app.test" />
+      <item itemvalue="Application.app.local" />
       <item itemvalue="Maven.mvn" />
     </list>
   </component>
@@ -87,5 +146,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

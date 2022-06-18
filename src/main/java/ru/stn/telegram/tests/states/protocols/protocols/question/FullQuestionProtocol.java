@@ -11,6 +11,7 @@ import ru.stn.telegram.tests.states.protocols.basics.BaseProtocol;
 import ru.stn.telegram.tests.states.protocols.states.attempt.AttemptState;
 import ru.stn.telegram.tests.states.protocols.states.correct.CorrectState;
 import ru.stn.telegram.tests.states.protocols.states.forward.ForwardState;
+import ru.stn.telegram.tests.states.protocols.states.forward.PrivateForwardState;
 import ru.stn.telegram.tests.states.protocols.states.keyword.KeywordState;
 import ru.stn.telegram.tests.states.protocols.states.maximum.MaximumState;
 import ru.stn.telegram.tests.states.protocols.states.message.MessageState;
@@ -24,7 +25,7 @@ import java.util.ResourceBundle;
 @Component("FullQuestionProtocol")
 public class FullQuestionProtocol extends BaseQuestionProtocol {
     public FullQuestionProtocol(
-            ForwardState forwardState,
+            PrivateForwardState forwardState,
             KeywordState keywordState,
             MessageState messageState,
             TimeoutState timeoutState,

@@ -5,6 +5,7 @@ import ru.stn.telegram.tests.states.entities.Question;
 import ru.stn.telegram.tests.states.localization.Localizer;
 import ru.stn.telegram.tests.states.protocols.states.correct.CorrectState;
 import ru.stn.telegram.tests.states.protocols.states.forward.ForwardState;
+import ru.stn.telegram.tests.states.protocols.states.forward.PrivateForwardState;
 import ru.stn.telegram.tests.states.services.BotService;
 import ru.stn.telegram.tests.states.services.QuestionService;
 import ru.stn.telegram.tests.states.services.SessionService;
@@ -12,7 +13,7 @@ import ru.stn.telegram.tests.states.services.SessionService;
 @Component("CorrectQuestionProtocol")
 public class CorrectQuestionProtocol extends SingleValueQuestionProtocol {
     public CorrectQuestionProtocol(
-            ForwardState forwardState,
+            PrivateForwardState forwardState,
             CorrectState correctState,
             QuestionService questionService,
             BotService botService,

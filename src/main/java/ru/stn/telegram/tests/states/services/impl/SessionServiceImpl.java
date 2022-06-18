@@ -2,10 +2,7 @@ package ru.stn.telegram.tests.states.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.stn.telegram.tests.states.entities.sessions.CurrencySession;
-import ru.stn.telegram.tests.states.entities.sessions.PaymentSession;
-import ru.stn.telegram.tests.states.entities.sessions.QuestionSession;
-import ru.stn.telegram.tests.states.entities.sessions.Session;
+import ru.stn.telegram.tests.states.entities.sessions.*;
 import ru.stn.telegram.tests.states.protocols.Protocols;
 import ru.stn.telegram.tests.states.repositories.SessionRepository;
 import ru.stn.telegram.tests.states.services.SessionService;
@@ -92,5 +89,9 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public PaymentSession toPaymentSession(long userId) {
         return toSpecificSession(userId, PaymentSession::new);
+    }
+    @Override
+    public BalanceSession toBalanceSession(long userId) {
+        return toSpecificSession(userId, BalanceSession::new);
     }
 }

@@ -54,6 +54,8 @@ public class DefaultCommandProcessor extends BotCommandProcessor<DefaultCommandP
         addHandler("currency", this::currency);
 
         addHandler("payment", this::payment);
+        addHandler("own_balance", this::ownBalance);
+        addHandler("user_balance", this::userBalance);
 
         addHandler("help", this::help);
     }
@@ -102,6 +104,12 @@ public class DefaultCommandProcessor extends BotCommandProcessor<DefaultCommandP
 
     private Void payment(Args args) {
         return common(args, Protocols.PAYMENT, SessionService::toPaymentSession);
+    }
+    private Void ownBalance(Args args) {
+        return common(args, Protocols.OWN_BALANCE, SessionService::toBalanceSession);
+    }
+    private Void userBalance(Args args) {
+        return common(args, Protocols.USER_BALANCE, SessionService::toBalanceSession);
     }
 
     private Void help(Args args) {
